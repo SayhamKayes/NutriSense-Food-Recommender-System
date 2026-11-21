@@ -59,7 +59,7 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({
   };
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-xs h-full min-h-0 flex flex-col">
+    <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-xs md:h-full md:min-h-0 flex flex-col">
       <div className="flex items-center justify-between flex-wrap gap-2 mb-3 pb-3 border-b border-slate-100 shrink-0">
         <div>
           <h3 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
@@ -94,7 +94,7 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({
       </div>
 
       {/* Scrollable Body */}
-      <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar pr-1">
+      <div className="md:flex-1 md:min-h-0 md:overflow-y-auto custom-scrollbar pr-1">
         {isLocked ? (
           <div className="bg-red-50 border-2 border-dashed border-red-200 rounded-2xl p-6 text-center my-2">
             <Lock className="w-9 h-9 text-red-500 mx-auto mb-2.5" />
