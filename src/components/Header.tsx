@@ -19,9 +19,9 @@ export const Header: React.FC<HeaderProps> = ({
   largeClockOnMobile = false
 }) => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 items-stretch mb-3">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-2.5 lg:gap-3 items-stretch mb-2.5 lg:mb-3">
       {/* Greeting Card - 3 columns on large screens */}
-      <div className="lg:col-span-3 bg-white border border-slate-200 rounded-2xl px-5 py-3.5 shadow-xs flex flex-col justify-center min-h-[112px] lg:h-[116px] box-border relative">
+      <div className="lg:col-span-3 bg-white border border-slate-200 rounded-2xl px-4 py-3 lg:px-5 lg:py-3.5 shadow-xs flex flex-col justify-center lg:h-[116px] box-border relative">
         <div className="flex items-center justify-between gap-2">
           <div className="min-w-0">
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight truncate">
