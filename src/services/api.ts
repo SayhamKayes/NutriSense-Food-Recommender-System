@@ -5,9 +5,19 @@ export const API_BASE = rawApiUrl
   ? (rawApiUrl.endsWith('/api') ? rawApiUrl : `${rawApiUrl}/api`)
   : '/api';
 
+const API_KEY = (import.meta.env.VITE_API_KEY || '').trim();
+
+function buildHeaders(extra?: Record<string, string>): Record<string, string> {
+  const headers: Record<string, string> = { ...(extra || {}) };
+  if (API_KEY) {
+    headers['X-Client-Key'] = API_KEY;
+  }
+  return headers;
+}
+
 export async function fetchBDTInfo(): Promise<BDTInfo> {
   try {
-    const res = await fetch(`${API_BASE}/bdt-info`);
+    const res = await fetch(`${API_BASE}/bdt-info`, { headers: buildHeaders() });
     if (!res.ok) throw new Error('API failed');
     return await res.json();
   } catch {
@@ -39,7 +49,7 @@ export async function calculateProfile(profileData: Partial<UserProfile>): Promi
   try {
     const res = await fetch(`${API_BASE}/profile/calculate`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: buildHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify(profileData)
     });
     if (!res.ok) throw new Error('Profile calculation failed');
@@ -110,7 +120,7 @@ export async function fetchFoods(scope: 'bangladesh' | 'global' = 'bangladesh', 
     if (search && search.trim()) params.set('search', search.trim());
     params.set('limit', '9000');
 
-    const res = await fetch(`${API_BASE}/foods?${params.toString()}`);
+    const res = await fetch(`${API_BASE}/foods?${params.toString()}`, { headers: buildHeaders() });
     if (!res.ok) throw new Error('Fetch foods failed');
     return await res.json();
   } catch (err) {
@@ -138,7 +148,7 @@ export async function fetchRecommendations(
   try {
     const res = await fetch(`${API_BASE}/recommendations`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: buildHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
         consumed_indices: consumedIndices,
         remaining_calories: remainingCalories,
@@ -231,7 +241,7 @@ export async function fetchCaution(
   try {
     const res = await fetch(`${API_BASE}/caution`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: buildHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
         total_calories: totalCalories,
         target_calories: targetCalories,
