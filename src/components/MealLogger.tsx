@@ -96,7 +96,7 @@ export const MealLogger: React.FC<MealLoggerProps> = ({
   };
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs h-full min-h-0 flex flex-col overflow-y-auto custom-scrollbar">
+    <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs md:h-full md:min-h-0 flex flex-col md:overflow-y-auto custom-scrollbar">
       {/* Real-Time Sequential Guidance Message Box (Always visible in this position) */}
       {isActiveMealLocked ? (
         <div className="bg-red-50 border border-red-200 border-l-4 border-l-red-600 rounded-xl p-3 mb-3 shrink-0">
