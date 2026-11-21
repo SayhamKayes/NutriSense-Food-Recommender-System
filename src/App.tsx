@@ -280,7 +280,13 @@ export const App: React.FC = () => {
   const isOverBudget = Boolean(caution?.is_over);
 
   return (
-    <div className="min-h-dvh md:h-dvh md:overflow-hidden bg-slate-50 text-slate-900 pb-20 md:pb-0 flex flex-col">
+    <div
+      className={`${
+        activeMobileTab === 'overview'
+          ? 'h-dvh overflow-hidden pb-16'
+          : 'min-h-dvh pb-24'
+      } md:h-dvh md:overflow-hidden md:pb-0 bg-slate-50 text-slate-900 flex flex-col`}
+    >
       {/* Toast Notification */}
       <AnimatePresence>
         {notification && (
@@ -455,7 +461,13 @@ export const App: React.FC = () => {
         </main>
 
         {/* Mobile View: Controlled by Sticky Bottom Bar */}
-        <div className="md:hidden space-y-3">
+        <div
+          className={`md:hidden ${
+            activeMobileTab === 'overview'
+              ? 'flex-1 min-h-0 flex flex-col justify-start overflow-hidden'
+              : 'space-y-3'
+          }`}
+        >
           {activeMobileTab === 'overview' && (
             <>
               <Header
@@ -476,32 +488,17 @@ export const App: React.FC = () => {
           )}
 
           {activeMobileTab === 'logger' && (
-            <>
-              <Header
-                user={user}
-                greetingText={bdtInfo.greeting}
-                mealWindow={bdtInfo.current_meal}
-                onEditProfile={handleOpenEditProfile}
-              />
-              <MetricCards
-                user={user}
-                totalCalories={totalCalories}
-                totalProtein={totalProtein}
-                totalCarbs={totalCarbs}
-                totalFat={totalFat}
-              />
-              <MealLogger
-                activeMeal={activeMeal}
-                currentPeriod={currentPeriod}
-                mealsLog={mealsLog}
-                guidance={guidance}
-                isOverBudget={isOverBudget}
-                surplusKcal={caution?.surplus_kcal ?? Math.max(0, totalCalories - Math.round(user.target_calories))}
-                onOpenCautions={() => setIsCautionOpen(true)}
-                onSelectMeal={setActiveMeal}
-                onAddFood={handleAddFood}
-              />
-            </>
+            <MealLogger
+              activeMeal={activeMeal}
+              currentPeriod={currentPeriod}
+              mealsLog={mealsLog}
+              guidance={guidance}
+              isOverBudget={isOverBudget}
+              surplusKcal={caution?.surplus_kcal ?? Math.max(0, totalCalories - Math.round(user.target_calories))}
+              onOpenCautions={() => setIsCautionOpen(true)}
+              onSelectMeal={setActiveMeal}
+              onAddFood={handleAddFood}
+            />
           )}
 
           {activeMobileTab === 'diary' && (
@@ -522,26 +519,17 @@ export const App: React.FC = () => {
           )}
 
           {activeMobileTab === 'recommendations' && (
-            <>
-              <MetricCards
-                user={user}
-                totalCalories={totalCalories}
-                totalProtein={totalProtein}
-                totalCarbs={totalCarbs}
-                totalFat={totalFat}
-              />
-              <AIRecommendations
-                consumedIndices={consumedIndices}
-                remainingCalories={remainingBudget}
-                chosenMeal={activeMeal}
-                onQuickAdd={handleQuickAdd}
-                isLocked={guidance.is_blocked}
-                missingMeals={guidance.missing_meals}
-                guidanceMessage={guidance.message}
-                defaultTargetMeal={guidance.rec_target}
-                onJumpToMeal={handleJumpToMeal}
-              />
-            </>
+            <AIRecommendations
+              consumedIndices={consumedIndices}
+              remainingCalories={remainingBudget}
+              chosenMeal={activeMeal}
+              onQuickAdd={handleQuickAdd}
+              isLocked={guidance.is_blocked}
+              missingMeals={guidance.missing_meals}
+              guidanceMessage={guidance.message}
+              defaultTargetMeal={guidance.rec_target}
+              onJumpToMeal={handleJumpToMeal}
+            />
           )}
         </div>
       </div>
