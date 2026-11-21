@@ -297,12 +297,14 @@ export const App: React.FC = () => {
       </AnimatePresence>
 
       <div className="max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-3 pb-3 flex-1 min-h-0 flex flex-col">
-        {/* Top Navigation Bar: Left Brand (clean NutriSense only), Center Menu, Right Metabolic Target */}
-        <header className="flex items-center justify-between gap-3 mb-3 pb-2.5 border-b border-slate-200 shrink-0 flex-wrap">
+        {/* Top Navigation Bar: Left Brand Logo, Center Menu, Right Metabolic Target */}
+        <header className="flex items-center justify-between gap-3 mb-2.5 pb-2 border-b border-slate-200 shrink-0 flex-wrap">
           <div className="flex items-center">
-            <span className="font-extrabold text-lg text-slate-900 tracking-tight">
-              NutriSense
-            </span>
+            <img
+              src="/NutriSenseLogo.png"
+              alt="NutriSense"
+              className="h-11 w-auto object-contain select-none"
+            />
           </div>
 
           {/* Center: Navigation Menu */}
