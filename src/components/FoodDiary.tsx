@@ -39,7 +39,7 @@ export const FoodDiary: React.FC<FoodDiaryProps> = ({
   });
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs h-full min-h-0 flex flex-col">
+    <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs md:h-full md:min-h-0 flex flex-col">
       {/* Pinned Diary Header */}
       <div className="flex items-center justify-between flex-wrap gap-2 pb-2.5 border-b border-slate-100 shrink-0">
         <div>
@@ -70,7 +70,7 @@ export const FoodDiary: React.FC<FoodDiaryProps> = ({
         </div>
       ) : (
         <>
-          <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar py-3 pr-1 space-y-3">
+          <div className="md:flex-1 md:min-h-0 md:overflow-y-auto custom-scrollbar py-3 pr-1 space-y-3">
             {MEAL_ORDER.map((meal) => {
               const items = mealsLog[meal];
               if (items.length === 0) return null;
