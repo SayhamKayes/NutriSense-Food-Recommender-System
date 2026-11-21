@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #f8fafc;
+    color: #0f172a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Native <dialog> modal scroll containment & backdrop styling */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  background-color: rgba(15, 23, 42, 0.35);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+dialog.dialog-solid-backdrop::backdrop {
+  background-color: #ffffff;
+  backdrop-filter: none;
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+dialog.dialog-subtle-backdrop::backdrop {
+  background-color: rgba(15, 23, 42, 0.35);
+  backdrop-filter: none;
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Defer invalid form styling until after user interaction */
+input:is(:user-invalid, .user-invalid-fallback),
+select:is(:user-invalid, .user-invalid-fallback) {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+/* Custom scrollbars using standard CSS properties with legacy WebKit fallback */
+.custom-scrollbar {
+  --scrollbar-thumb: #94a3b8;
+  --scrollbar-track: #f1f5f9;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+}
+
+@supports not (scrollbar-color: auto) {
+  .custom-scrollbar {
+    scrollbar-width: auto;
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+}
