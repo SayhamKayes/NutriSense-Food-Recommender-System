@@ -83,14 +83,14 @@ export const AnalogClock: React.FC<AnalogClockProps> = ({ largeMobile = false })
     <div
       className={`bg-white border border-slate-200 rounded-2xl shadow-xs flex items-center box-border w-full ${
         largeMobile
-          ? 'p-4 justify-center sm:justify-start gap-4 min-h-[164px] lg:h-[116px] lg:p-2.5'
+          ? 'p-3 justify-center sm:justify-start gap-3.5 min-h-[124px] lg:h-[116px] lg:p-2.5'
           : 'p-2.5 sm:p-3 justify-start gap-3 h-[116px]'
       }`}
     >
       {/* SVG Wall Clock (Sapling Model) */}
       <div
         className={`shrink-0 ${
-          largeMobile ? 'w-[132px] h-[132px] lg:w-[96px] lg:h-[96px]' : 'w-[96px] h-[96px]'
+          largeMobile ? 'w-[108px] h-[108px] lg:w-[96px] lg:h-[96px]' : 'w-[96px] h-[96px]'
         }`}
       >
         <svg viewBox="0 0 100 100" className="w-full h-full select-none">
