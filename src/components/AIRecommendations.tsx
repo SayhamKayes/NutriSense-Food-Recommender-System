@@ -33,7 +33,8 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({
   defaultTargetMeal,
   onJumpToMeal
 }) => {
-  const [modelType, setModelType] = useState<'LSTM' | 'Transformer'>('LSTM');
+  const [modelType, setModelType] = useState<'LSTM' | 'Transformer' | 'Ensemble'>('Ensemble');
+  const [choiceInput, setChoiceInput] = useState<string>('Rice, Fish, Chicken, Dal, Yogurt, Vegetable, Fruit');
   const [selectedTargetMeal, setSelectedTargetMeal] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [recsData, setRecsData] = useState<RecommendationResponse | null>(null);
@@ -44,11 +45,16 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({
     if (isLocked) return;
     setLoading(true);
     try {
+      const parsedChoices = choiceInput
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
       const res = await fetchRecommendations(
         consumedIndices,
         remainingCalories,
         targetMeal,
-        modelType
+        modelType,
+        parsedChoices
       );
       setRecsData(res);
     } catch (err) {
@@ -71,15 +77,15 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({
         </div>
 
         {/* Model Architecture Radio */}
-        <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl text-xs font-bold">
+        <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl text-xs font-bold flex-wrap">
           <button
             type="button"
-            onClick={() => setModelType('LSTM')}
+            onClick={() => setModelType('Ensemble')}
             className={`px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${
-              modelType === 'LSTM' ? 'bg-white text-blue-600 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              modelType === 'Ensemble' ? 'bg-white text-blue-600 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            LSTM Tracker
+            Unified Ensemble
           </button>
           <button
             type="button"
@@ -89,6 +95,15 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({
             }`}
           >
             Dietary Transformer
+          </button>
+          <button
+            type="button"
+            onClick={() => setModelType('LSTM')}
+            className={`px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${
+              modelType === 'LSTM' ? 'bg-white text-blue-600 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            LSTM Tracker
           </button>
         </div>
       </div>
@@ -126,7 +141,7 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({
         ) : (
           <div>
             {/* Controls Bar */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4 items-end bg-slate-50 p-3 rounded-xl border border-slate-100">
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-4 items-end bg-slate-50 p-3 rounded-xl border border-slate-100">
               <div>
                 <label htmlFor="rec-target-meal" className="text-xs font-bold text-slate-700 block mb-1">
                   Recommendation Target Meal:
@@ -142,6 +157,20 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({
                   <option value="Evening Snack">Evening Snack</option>
                   <option value="Dinner">Dinner</option>
                 </select>
+              </div>
+
+              <div>
+                <label htmlFor="rec-choice-list" className="text-xs font-bold text-slate-700 block mb-1">
+                  Your Food Choice List (comma-separated):
+                </label>
+                <input
+                  id="rec-choice-list"
+                  type="text"
+                  value={choiceInput}
+                  onChange={(e) => setChoiceInput(e.target.value)}
+                  placeholder="e.g. Rice, Fish, Chicken, Dal, Yogurt, Mango"
+                  className="w-full text-xs font-semibold bg-white border border-slate-300 rounded-lg p-2 text-slate-800"
+                />
               </div>
 
               <div className="text-xs text-slate-500 font-medium pb-2">
