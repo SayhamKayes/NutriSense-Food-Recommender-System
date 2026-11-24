@@ -386,8 +386,38 @@ export const App: React.FC = () => {
 
           {/* Right: Metabolic Target */}
           <div className="flex items-center gap-2 text-xs font-semibold text-slate-600">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-slate-200 rounded-lg shadow-2xs">
-              <HeartPulse className="w-3.5 h-3.5 text-rose-500" />
+            <span className="group inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-slate-200 hover:border-rose-200 rounded-lg shadow-2xs transition-colors">
+              <motion.span
+                className="relative inline-flex items-center justify-center cursor-pointer"
+                animate={{
+                  scale: [1, 1.32, 0.94, 1.24, 1, 1],
+                }}
+                transition={{
+                  duration: 1.35,
+                  repeat: Infinity,
+                  times: [0, 0.14, 0.28, 0.42, 0.65, 1],
+                  ease: 'easeInOut',
+                }}
+                whileHover={{ scale: 1.38 }}
+                whileTap={{ scale: 0.88 }}
+                onClick={handleOpenEditProfile}
+                title="Active Metabolic Pulse — Click to edit Metabolic Target"
+              >
+                <motion.span
+                  className="absolute inset-0 rounded-full bg-rose-400/40 pointer-events-none"
+                  animate={{
+                    scale: [1, 1.85, 1.1, 1.65, 1, 1],
+                    opacity: [0, 0.65, 0.1, 0.45, 0, 0],
+                  }}
+                  transition={{
+                    duration: 1.35,
+                    repeat: Infinity,
+                    times: [0, 0.14, 0.28, 0.42, 0.65, 1],
+                    ease: 'easeOut',
+                  }}
+                />
+                <HeartPulse className="relative z-10 w-3.5 h-3.5 text-rose-500 group-hover:text-rose-600 drop-shadow-[0_0_3px_rgba(244,63,94,0.35)] transition-colors" />
+              </motion.span>
               <span>Metabolic Target: {Math.round(user.target_calories)} kcal</span>
             </span>
           </div>
