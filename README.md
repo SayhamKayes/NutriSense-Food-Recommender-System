@@ -1,4 +1,4 @@
-# NutriSense Frontend — AI-Powered Sequential Dietary Health & Metabolic Nutrition Recommender
+# NutriSense - AI-Powered Sequential Dietary Health & Metabolic Nutrition Recommender
 
 This repository contains the **React 19 + TypeScript + Vite 8 + Tailwind CSS 4** frontend application for **NutriSense**, an intelligent dietary management and sequential meal recommendation platform powered by a **FastAPI + PyTorch** neural backend.
 
